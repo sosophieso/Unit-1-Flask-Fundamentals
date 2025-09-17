@@ -47,3 +47,16 @@ def calculator(num1, operation, num2):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+@app.route("/temp/<current>/<int:num1>")
+def tempcalc(num1, current):
+    changes = {
+        'F': ((num1-32)*5)/9,
+        'C': ((num1*9)/5)+32
+    }
+    if current in changes:
+        result = changes[current]
+        target = "C" if current == "F" else "F"
+        return f"{num1} {current} = {result} {target}"
+    else:
+        return "Unknown operator"
